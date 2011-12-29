@@ -1,35 +1,18 @@
 " $Id$
 "
 " Maintainer:   Tzeng Yuxio <tzengyuxio at gmail dot com>
-" Last Change:  $Date$
+" Last Change:  2011 Dec 30
 "
 " To use it, copy it to
-"     for Unix and OS-X:    $HOME/.vimrc
-"     for MS-DOS and Win32: $HOME\_vimrc or $VIM\_vimrc
+"     for Unix and OS X: $HOME/.vimrc
+"  for MS-DOS and Win32: $HOME\_vimrc or $VIM\_vimrc
 
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-
-"=============================================================================
-" Load System Default vimrc
-"=============================================================================
-if !exists("g:svimvimrc")
-  if filereadable($VIM."/.vimrc")
-    source $VIM/.vimrc
-  elseif filereadable($VIM."/_vimrc")
-    source $VIM/_vimrc
-  endif
-  let g:svimvimrc=1
-endif
-
-" quick editing of .vimrc
-map <F4> :<C-U>edit! $MYVIMRC<CR>
-" quick reloading of .vimrc
-map <F5> :<C-U>source $MYVIMRC<CR>
 " when .vimrc is edited, reload it
-autocmd! bufwritepost vimrc source $MYVIMRC
+autocmd! bufwritepost .vimrc source $MYVIMRC
 
 
 "=============================================================================
@@ -67,6 +50,9 @@ set linebreak
 
 " omni complete
 set completeopt=longest,menu
+" omni menu colors
+hi Pmenu    cterm=NONE ctermfg=7 ctermbg=5 gui=NONE guifg=#d3d7cf guibg=#3465a4
+hi PmenuSel cterm=NONE ctermfg=0 ctermbg=7 gui=bold guifg=#eeeeec guibg=#f57900
 
 " indent switches
 set autoindent  " ai
@@ -83,6 +69,7 @@ set smartindent " si
 "  sw  : shiftwidth
 "  et  : expandtab
 "  sta : smarttab
+"  tw  : textwidth
 autocmd FileType vim              setlocal ts=2 sw=2 et
 autocmd FileType html,javascript  setlocal ts=2 sw=2 et
 autocmd FileType c,cpp            setlocal ts=4 sw=4 et
@@ -127,10 +114,10 @@ endif
 " Syntax Highlighting
 "=============================================================================
 set background=dark
-if &t_Co > 1 || has("gui_running")
+if &t_Co > 2 || has("gui_running")
   syntax on
-  colorscheme desert
   set hlsearch          " highlight search things
+  colorscheme zenburn
   map <F6> :<C-U>noh<CR>
 endif
 
@@ -147,17 +134,13 @@ set showcmd     " display incomplete commands
 " Graphic User Interface
 if has("gui_running")
   autocmd GUIEnter * winpos 0 0 | set lines=999 columns=9999
-  set guifont=Dina:h10:cANSI,Consolas:h10:cANSI,Monaco:h10:cANSI
-  "set guifontwide=
+  set guifont=Dina:h10:cANSI,Consolas:h14:cANSI,Monaco:h14
   set guioptions-=m "Remove menubar"
   set guioptions-=T "Remove toolbar"
 endif
 
 " line number
-hi LineNr guifg=#d3d7cf guibg=#555753
-" omni menu colors
-hi Pmenu    cterm=NONE ctermfg=7 ctermbg=5 gui=NONE guifg=#d3d7cf guibg=#3465a4
-hi PmenuSel cterm=NONE ctermfg=0 ctermbg=7 gui=bold guifg=#eeeeec guibg=#f57900
+hi LineNr   cterm=NONE ctermfg=7 ctermbg=8 gui=NONE guifg=#d3d7cf guibg=#555753
 
 
 "=============================================================================
