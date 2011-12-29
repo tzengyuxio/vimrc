@@ -11,12 +11,12 @@ Install
 
 * Mac OS X
 
-"""
+```sh
 git clone https://github.com/tzengyuxio/vimrc ~/.vim
 ln -s ~/.vimrc ~/.vim/vimrc
 cd ~/.vim
 git submodule update --init
-"""
+```
 
 
 Key Mappings
