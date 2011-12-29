@@ -147,47 +147,51 @@ endif
 "=============================================================================
 " Status Bar
 "=============================================================================
-"Always show the status line
-set laststatus=2
+function! LoadStatusBar()
+  "Always show the status line
+  set laststatus=2
 
-"Format the statusline
-if has("statusline")
-  " Custom color usage
-  " ------------------
-  " User1 : buffer number
-  " User2 : flag of Modified and Readonly
-  " User3 : filename
-  " User4 : type of file
-  " User5 : current position (line and column) highlight
-  hi StatusLine   gui=NONE guifg=#2e3436 guibg=#eeeeec
-  hi StatusLineNC gui=NONE guifg=#888a85 guibg=#babdb6
-  hi User1        gui=NONE guifg=#000000 guibg=#eeeeec
-  hi User2        gui=NONE guifg=#edd400 guibg=#ef2929
-  hi User3        gui=bold guifg=#3465a4 guibg=#eeeeec
-  hi User4        gui=NONE guifg=#4e9a06 guibg=#eeeeec
-  hi User5        gui=NONE guifg=#f57900 guibg=#eeeeec
-  if &t_Co > 255
-    hi StatusLine   cterm=NONE ctermfg=8  ctermbg=15
-    hi StatusLineNC cterm=NONE ctermfg=7  ctermbg=8
-    hi User1        cterm=NONE ctermfg=0  ctermbg=15
-    hi User2        cterm=NONE ctermfg=11 ctermbg=9
-    hi User3        cterm=bold ctermfg=25 ctermbg=15
-    hi User4        cterm=NONE ctermfg=2  ctermbg=15
-    hi User5        cterm=NONE ctermfg=9  ctermbg=15
-  endif
+  "Format the statusline
+  if has("statusline")
+    " Custom color usage
+    " ------------------
+    " User1 : buffer number
+    " User2 : flag of Modified and Readonly
+    " User3 : filename
+    " User4 : type of file
+    " User5 : current position (line and column) highlight
+    hi StatusLine   gui=NONE guifg=#2e3436 guibg=#eeeeec
+    hi StatusLineNC gui=NONE guifg=#888a85 guibg=#babdb6
+    hi User1        gui=NONE guifg=#000000 guibg=#eeeeec
+    hi User2        gui=NONE guifg=#edd400 guibg=#ef2929
+    hi User3        gui=bold guifg=#3465a4 guibg=#eeeeec
+    hi User4        gui=NONE guifg=#4e9a06 guibg=#eeeeec
+    hi User5        gui=NONE guifg=#f57900 guibg=#eeeeec
+    if &t_Co > 255
+      hi StatusLine   cterm=NONE ctermfg=8  ctermbg=15
+      hi StatusLineNC cterm=NONE ctermfg=7  ctermbg=8
+      hi User1        cterm=NONE ctermfg=0  ctermbg=15
+      hi User2        cterm=NONE ctermfg=11 ctermbg=9
+      hi User3        cterm=bold ctermfg=25 ctermbg=15
+      hi User4        cterm=NONE ctermfg=2  ctermbg=15
+      hi User5        cterm=NONE ctermfg=9  ctermbg=15
+    endif
 
-  set statusline=%1*[#%02n]%*%2*%([%M%R]%)%*\ %3*%t%*\ %4*%y%*\ \|
-  set statusline+=\ %{getfsize(expand(\"%:p\"))}\ B\ \|
-  if &columns > 100
-    "set statusline+=%<
-    set statusline+=\ %{strftime(\"%c\",\ getftime(expand(\"%:p\")))}\ \|
+    set statusline=%1*[#%02n]%*%2*%([%M%R]%)%*\ %3*%t%*\ %4*%y%*\ \|
+    set statusline+=\ %{getfsize(expand(\"%:p\"))}\ B\ \|
+    if &columns > 100
+      "set statusline+=%<
+      set statusline+=\ %{strftime(\"%c\",\ getftime(expand(\"%:p\")))}\ \|
+    endif
+    set statusline+=%=\|
+    if &columns > 125
+      set statusline+=\ @\ %{getcwd()}\ \|
+    endif
+    set statusline+=\ POS:\ %o\ (%5*%l%*/%L,%5*%c%*)\ \|\ %{&fenc}\ \|\ %{&ff}\ \|\ %P\ 
   endif
-  set statusline+=%=\|
-  if &columns > 125
-    set statusline+=\ @\ %{getcwd()}\ \|
-  endif
-  set statusline+=\ POS:\ %o\ (%5*%l%*/%L,%5*%c%*)\ \|\ %{&fenc}\ \|\ %{&ff}\ \|\ %P\ 
-endif
+endfunction
+call LoadStatusBar()
+autocmd VimResized * call LoadStatusBar()
 
 
 "=============================================================================
