@@ -14,6 +14,9 @@ set nocompatible
 " when .vimrc is edited, reload it
 autocmd! bufwritepost .vimrc source $MYVIMRC
 
+" Runtime path manipulation
+call pathogen#infect()
+
 
 "=============================================================================
 " General Options
@@ -110,13 +113,18 @@ endif
 "=============================================================================
 " Syntax Highlighting
 "=============================================================================
-set background=dark
 if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch          " highlight search things
   map <F6> :<C-U>noh<CR>
-  if filereadable($HOME."/.vim/colors/zenburn.vim")
-    colorscheme zenburn
+  if isdirectory($HOME."/.vim/bundle/vim-colors-solarized/")
+    if has('gui_running')
+      set background=light
+    else
+      let g:solarized_termcolors=256
+      set background=dark
+    endif
+    colorscheme solarized
   else
     colorscheme desert
     " omni menu colors
@@ -338,5 +346,3 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "norm
 "=============================================================================
 " Plugin Configurations
 "=============================================================================
-call pathogen#infect()
-
