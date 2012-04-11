@@ -348,3 +348,7 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "norm
 "=============================================================================
 " Plugin Configurations
 "=============================================================================
+
+" Unicode related.
+" ref. to http://vim.wikia.com/wiki/Display_UTF-8_characters_in_Mac_Quicklook
+"au BufWritePost *.txt :if &fenc=='utf-8' || (&fenc=='' && &enc=='utf-8') | exec "silent !xattr -w com.apple.TextEncoding 'UTF-8;134217984' \"%\"" | endif
