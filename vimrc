@@ -300,30 +300,6 @@ vmap <C-L> <Tab>
 " with <Leader>
 map <Leader>cd :cd %:p:h<CR>
 
-" auto close
-inoremap ( ()<Esc>:let rightclose=")"<CR>i
-inoremap { {}<Esc>:let rightclose="}"<CR>i
-inoremap [ []<Esc>:let rightclose="]"<CR>i
-"inoremap < <><Esc>:let rightclose=">"<CR>i
-inoremap ' ''<Esc>:let rightclose="'"<CR>i
-"inoremap " ""<Esc>:let rightclose='"'<CR>i
-inoremap ` ``<Esc>:let rightclose="`"<CR>i
-" shortcut <M-L> for quickly get out of pairs
-imap ì <Esc>:exec "normal f".rightclose<CR>a
-
-" auto surround
-vnoremap <Leader>( <Esc>`<i(<Esc>`>a)<Esc>
-vnoremap <Leader>) <Esc>`<i( <Esc>`>a )<Esc>
-vnoremap <Leader>{ <Esc>`<O{<Esc>`>o}<Esc>
-vnoremap <Leader>} >><Esc>`<O{<Esc>`>o}<Esc><<
-vnoremap <Leader>[ <Esc>`<i[<Esc>`>a]<Esc>
-vnoremap <Leader>] <Esc>`<i[ <Esc>`>a ]<Esc>
-"vnoremap <Leader>< <Esc>`<i<<Esc>`>a><Esc>
-vnoremap <Leader>> <Esc>`<i< <Esc>`>a ><Esc>
-vnoremap <Leader>' <Esc>`<i'<Esc>`>a'<Esc>
-vnoremap <Leader>" <Esc>`<i"<Esc>`>a"<Esc>
-vnoremap <Leader>` <Esc>`<i`<Esc>`>a`<Esc>
-
 
 "=============================================================================
 " Auto Commands
