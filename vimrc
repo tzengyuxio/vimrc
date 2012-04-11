@@ -70,8 +70,10 @@ set smartindent " si
 "  et  : expandtab
 "  sta : smarttab
 "  tw  : textwidth
+autocmd BufNewFile,BufRead *.json set ft=javascript
 autocmd FileType vim              setlocal ts=2 sw=2 et
-autocmd FileType html,javascript  setlocal ts=2 sw=2 et
+autocmd FileType html,json        setlocal ts=2 sw=2 et
+autocmd FileType css,javascript   setlocal ts=2 sw=2 et
 autocmd FileType c,cpp            setlocal ts=4 sw=4 et
 autocmd FileType java,php         setlocal ts=4 sw=4 et
 autocmd FileType python           setlocal ts=8 sw=4 et tw=79
