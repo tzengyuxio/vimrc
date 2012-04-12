@@ -10,12 +10,38 @@
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+"
+" original repos on github
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'kien/ctrlp.vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'ervandew/supertab'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'mattn/calendar-vim'
+" vim-scripts repos
+" non github repos
+
+filetype plugin indent on     " required! 
 
 " when .vimrc is edited, reload it
 autocmd! bufwritepost .vimrc source $MYVIMRC
 
 " Runtime path manipulation
-call pathogen#infect()
+"call pathogen#infect()
 
 
 "=============================================================================

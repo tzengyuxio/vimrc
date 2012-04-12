@@ -28,9 +28,13 @@ Key Mappings
 Scripts
 -------
 
-* [Pathogen](http://www.vim.org/scripts/script.php?script_id=2332)
-* [Calendar](http://www.vim.org/scripts/script.php?script_id=52)
-* [NERD tree](http://www.vim.org/scripts/script.php?script_id=1658)
-* [NERD Commenter](http://www.vim.org/scripts/script.php?script_id=1218)
-* [SuperTab](http://www.vim.org/scripts/script.php?script_id=1643)
-* [Solarized](http://www.vim.org/scripts/script.php?script_id=3520)
+- 'scrooloose/nerdtree'
+- 'jistr/vim-nerdtree-tabs'
+- 'kien/ctrlp.vim'
+- 'scrooloose/nerdcommenter'
+- 'ervandew/supertab'
+- 'altercation/vim-colors-solarized'
+- 'tpope/vim-surround'
+- 'tpope/vim-repeat'
+- 'Lokaltog/vim-easymotion'
+- 'mattn/calendar-vim'
