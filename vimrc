@@ -1,7 +1,7 @@
 " $Id$
 "
 " Maintainer:   Tzeng Yuxio <tzengyuxio at gmail dot com>
-" Last Change:  2011 Dec 30
+" Last Change:  2012 Apr 12
 "
 " To use it, copy it to
 "     for Unix and OS X: $HOME/.vimrc
@@ -9,9 +9,13 @@
 
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
-set nocompatible
-filetype off                   " required!
+set nocompatible               " be iMproved
 
+"-----------------------------------------------------------------------------
+" Configure bundles
+"-----------------------------------------------------------------------------
+
+filetype off                   " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -22,55 +26,54 @@ Bundle 'gmarik/vundle'
 " My Bundles here:
 "
 " original repos on github
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'ervandew/supertab'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'ervandew/supertab'
+Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Lokaltog/vim-powerline'
 Bundle 'mattn/calendar-vim'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'tangledhelix/vim-octopress'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
 " vim-scripts repos
 " non github repos
 
-filetype plugin indent on     " required! 
+filetype indent plugin on     " required!
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
 
-" when .vimrc is edited, reload it
-autocmd! bufwritepost .vimrc source $MYVIMRC
+"-----------------------------------------------------------------------------
+" Setting options 
+"-----------------------------------------------------------------------------
 
-" Runtime path manipulation
-"call pathogen#infect()
-
-
-"=============================================================================
-" General Options
-"=============================================================================
 set backspace=indent,eol,start
 
 set nobackup      " do not keep a backup file
 set noswapfile
 set nowritebackup " Make a backup before overwriting a file.
 
-set history=50    " keep 50 lines of command line history
-
 " Can be overruled by using "\c" or "\C" in the pattern. ex: \/Cfoobar
 set ignorecase    " ignore case when searching
 set incsearch     " do incremental searching
+set hlsearch      " highlight search things
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
-" favorite filetype
-set fileformats=unix,dos,mac
-filetype plugin indent on
-
 set showmatch     " show matching bracets"
-set matchtime=3   " how many tenths of a second to blink (default 5)
 
 set hidden        " change buffer without saving
-set showtabline=2 " always display tab page labels
 
 " wrap when a line is longer than window size, and insert no `endl'
 set textwidth=0
@@ -80,16 +83,20 @@ set linebreak
 " omni complete
 set completeopt=longest,menu
 
+"-----------------------------------------------------------------------------
+" Indent
+"-----------------------------------------------------------------------------
+
 " indent switches
-set autoindent  " ai
-set smartindent " si
-"set cindent    " cin - $VIMRUNTIME/indent/c.vim (cpp.vim) has included this
-"set copyindent " ci  - ci means copyindent, not cindent
+set autoindent    " ai
+"set smartindent  " si
+"set cindent      " cin - $VIMRUNTIME/indent/c.vim (cpp.vim) has included this
+"set copyindent   " ci  - ci means copyindent, not cindent
 
 " tabstop options
 "   default : ts=8 sts=0 sw=8 noet nosta
 "   python  : ts=4 sw=4 sta si et
-"-----------------------------------------------------------------------------
+"-----------------------------------------
 "  ts  : tabstop
 "  sts : softtabstop
 "  sw  : shiftwidth
@@ -98,78 +105,62 @@ set smartindent " si
 "  tw  : textwidth
 autocmd BufNewFile,BufRead *.json set ft=javascript
 autocmd FileType vim              setlocal ts=2 sw=2 et
-autocmd FileType html,json        setlocal ts=2 sw=2 et
-autocmd FileType css,javascript   setlocal ts=2 sw=2 et
+autocmd FileType html,css         setlocal ts=2 sw=2 et
+autocmd FileType javascript,json  setlocal ts=2 sw=2 et
 autocmd FileType c,cpp            setlocal ts=4 sw=4 et
 autocmd FileType java,php         setlocal ts=4 sw=4 et
 autocmd FileType python           setlocal ts=8 sw=4 et tw=79
 
-
-"=============================================================================
+"-----------------------------------------------------------------------------
 " Language and Localization
-"=============================================================================
-if has("multi_byte")
-  " locale lanuage
-  if has("win32")
-    language chinese_taiwan.950
-  else
-    language zh_TW.UTF-8
-  endif
-  language messages zh_TW.utf-8
+"-----------------------------------------------------------------------------
 
-  " vim encoding and file encoding list
-  set encoding=utf-8
-  set fileencodings=ucs-bom,utf-8,japan,prc,taiwan,latin1
+" vim encoding and file encoding list
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,japan,prc,taiwan,latin1
 
-  " file and terminal encoding
-  if has("unix") || has("gui_running")
-    set fileencoding=utf-8
-    set termencoding=utf-8
-  else
-    set fileencoding=taiwan
-    set termencoding=taiwan
-  endif
+" file and terminal encoding
+set fileencoding=utf-8
+set termencoding=utf-8
 
-  " fix the gui menu encoding problem
-  if has("gui_win32")
-    source $VIMRUNTIME/delmenu.vim
-    source $VIMRUNTIME/menu.vim
-  endif
+" fix the gui menu encoding problem
+if has("gui_win32")
+  source $VIMRUNTIME/delmenu.vim
+  source $VIMRUNTIME/menu.vim
 endif
 
-
-"=============================================================================
+"-----------------------------------------------------------------------------
 " Syntax Highlighting
-"=============================================================================
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch          " highlight search things
-  map <F6> :<C-U>noh<CR>
-  if isdirectory($HOME."/.vim/bundle/vim-colors-solarized/")
-    if has('gui_running')
-      set background=light
-    else
-      let g:solarized_termcolors=256
-      set background=dark
-    endif
-    colorscheme solarized
+"-----------------------------------------------------------------------------
+
+syntax on
+map <F6> :<C-U>noh<CR>
+if isdirectory($HOME."/.vim/bundle/vim-colors-solarized/")
+  if has('gui_running')
+    set background=light
   else
-    colorscheme desert
-    " omni menu colors
-    hi Pmenu    cterm=NONE ctermfg=7 ctermbg=5 gui=NONE guifg=#d3d7cf guibg=#3465a4
-    hi PmenuSel cterm=NONE ctermfg=0 ctermbg=7 gui=bold guifg=#eeeeec guibg=#f57900
+    let g:solarized_termcolors=256
+    set background=dark
   endif
+  colorscheme solarized
+else
+  set background=dark
+  colorscheme desert
 endif
 
-
-"=============================================================================
+"-----------------------------------------------------------------------------
 " Colors, Fonts and Gui
-"=============================================================================
+"-----------------------------------------------------------------------------
+
 " Text User Interface
 set ruler       " show the cursor position all the time
 set number      " show line number
 set cmdheight=2 " the height of command bar is 2 lines
 set showcmd     " display incomplete commands
+set showtabline=2 " always display tab page labels
+
+" Always show the status line
+set laststatus=2
 
 " Graphic User Interface
 if has("gui_running")
@@ -179,60 +170,10 @@ if has("gui_running")
   set guioptions-=T "Remove toolbar"
 endif
 
-
-"=============================================================================
-" Status Bar
-"=============================================================================
-function! LoadStatusBar()
-  "Always show the status line
-  set laststatus=2
-
-  "Format the statusline
-  if has("statusline")
-    " Custom color usage
-    " ------------------
-    " User1 : buffer number
-    " User2 : flag of Modified and Readonly
-    " User3 : filename
-    " User4 : type of file
-    " User5 : current position (line and column) highlight
-    hi StatusLine   gui=NONE guifg=#2e3436 guibg=#eeeeec
-    hi StatusLineNC gui=NONE guifg=#888a85 guibg=#babdb6
-    hi User1        gui=NONE guifg=#000000 guibg=#eeeeec
-    hi User2        gui=NONE guifg=#edd400 guibg=#ef2929
-    hi User3        gui=bold guifg=#3465a4 guibg=#eeeeec
-    hi User4        gui=NONE guifg=#4e9a06 guibg=#eeeeec
-    hi User5        gui=NONE guifg=#f57900 guibg=#eeeeec
-    if &t_Co > 255
-      hi StatusLine   cterm=NONE ctermfg=8  ctermbg=15
-      hi StatusLineNC cterm=NONE ctermfg=7  ctermbg=8
-      hi User1        cterm=NONE ctermfg=0  ctermbg=15
-      hi User2        cterm=NONE ctermfg=11 ctermbg=9
-      hi User3        cterm=bold ctermfg=25 ctermbg=15
-      hi User4        cterm=NONE ctermfg=2  ctermbg=15
-      hi User5        cterm=NONE ctermfg=9  ctermbg=15
-    endif
-
-    set statusline=%1*[#%02n]%*%2*%([%M%R]%)%*\ %3*%t%*\ %4*%y%*\ \|
-    set statusline+=\ %{getfsize(expand(\"%:p\"))}\ B\ \|
-    if &columns > 100
-      "set statusline+=%<
-      set statusline+=\ %{strftime(\"%c\",\ getftime(expand(\"%:p\")))}\ \|
-    endif
-    set statusline+=%=\|
-    if &columns > 125
-      set statusline+=\ @\ %{getcwd()}\ \|
-    endif
-    set statusline+=\ POS:\ %o\ (%5*%l%*/%L,%5*%c%*)\ \|\ %{&fenc}\ \|\ %{&ff}\ \|\ %P\ 
-  endif
-endfunction
-call LoadStatusBar()
-autocmd VimResized * call LoadStatusBar()
-
-
-"=============================================================================
+"-----------------------------------------------------------------------------
 " Key Mapping
-"=============================================================================
+"-----------------------------------------------------------------------------
+
 " Don't use ALT keys for menus.
 set winaltkeys=no
 
@@ -274,23 +215,6 @@ noremap <Leader>ow <C-W>o
 " Press ENTER to start typing commands, just like online-game. ;)
 map <CR> :
 
-" Search for selected text, forwards or backwards.
-" http://vim.wikia.com/wiki/VimTip171
-vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R><C-R>=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-vnoremap <silent> # :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy?<C-R><C-R>=substitute(
-  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-
-" bash style keyboard shortcuts
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-
 " line movement (use mark `m' for cursor position)
 nmap <M-Up>   mm:move .-2<CR>`m
 nmap <M-Down> mm:move .+1<CR>`m
@@ -304,53 +228,13 @@ vmap <Tab>    mm>`m:<C-U>exec "normal ".&shiftwidth."l"<CR>mmgv`m
 "vmap <Tab>    >gv
 "vmap <S-Tab>  <gv
 
-" ALT Mapping, please press <Ctrl-Q><Alt-{Key}>
-" followings are <M-K>, <M-J>, <M-H>, <M-L>
-nmap ë <M-Up>
-nmap ê <M-Down>
-nmap è mm<<`m:exec "normal ".&shiftwidth."h"<CR>
-nmap ì mm>>`m:exec "normal ".&shiftwidth."l"<CR>
-imap ë <M-Up>
-imap ê <M-Down>
-imap è <Esc>mm<<`m:exec "normal ".&shiftwidth."h"<CR>a
-imap ì <Esc>mm>>`m:exec "normal ".&shiftwidth."l"<CR>a
-vmap ë <M-Up>
-vmap ê <M-Down>
-vmap è <S-Tab>
-vmap ì <Tab>
-vmap <C-K> <M-Up>
-vmap <C-J> <M-Down>
-vmap <C-H> <S-Tab>
-vmap <C-L> <Tab>
-
-" with <Leader>
-map <Leader>cd :cd %:p:h<CR>
-
-
-"=============================================================================
-" Auto Commands
-"=============================================================================
-" Restore cursor to file position in previous editing session
-" http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
 "-----------------------------------------------------------------------------
-" Tell vim to remember certain things when we exit
-"  '10 : marks will be remembered for up to 10 previously edited files
-"  "100 : will save up to 100 lines for each register
-"  :20 : up to 20 lines of command-line history will be remembered
-"  % : saves and restores the buffer list
-"  n... : where to save the viminfo files
-set viminfo='10,\"100,:20,%,n$HOME/.viminfo
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" Auto Commands
+"-----------------------------------------------------------------------------
 
-" automatically removing all trailing whitespace
-" http://vim.wikia.com/wiki/Remove_unwanted_spaces
-"autocmd BufWritePre * :%s/\s\+$//e
-
-
-"=============================================================================
+"-----------------------------------------------------------------------------
 " Plugin Configurations
-"=============================================================================
+"-----------------------------------------------------------------------------
 
-" Unicode related.
-" ref. to http://vim.wikia.com/wiki/Display_UTF-8_characters_in_Mac_Quicklook
-"au BufWritePost *.txt :if &fenc=='utf-8' || (&fenc=='' && &enc=='utf-8') | exec "silent !xattr -w com.apple.TextEncoding 'UTF-8;134217984' \"%\"" | endif
+let g:Powerline_symbols = 'unicode'
+
