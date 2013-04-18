@@ -74,12 +74,14 @@ set foldlevel=99
 
 set switchbuf=usetab,newtab
 
+set fo+=Bm        " make chinese autowrap, 'fo'='formatoptions'
+
 " Colorscheme and GUI
 "-----------------------------------------------------------------------
 
 syntax on
 if has('gui_running')
-  set background=light
+  set background=dark
 else
   set background=dark
 endif
@@ -124,9 +126,14 @@ set autoindent  " ai
 " tw  | textwidth
 
 au BufNewFile,BufRead *.json set ft=javascript
+au BufNewFile,BufRead *.scss set ft=scss.css
+au BufNewFile,BufRead *.sass set ft=sass.css
 
-au FileType vim    setlocal ts=2 et sw=2
-au FileType python setlocal ts=8 et sw=4 sts=4 tw=79 foldmethod=indent
+au FileType vim     setlocal ts=2 et sw=2
+au FileType python  setlocal ts=8 et sw=4 sts=4 tw=79 foldmethod=indent
+au FileType html    setlocal ts=2 et sw=2 sts=2
+au FileType css     setlocal ts=4 et sw=4 sts=4
+au FileType sh      setlocal ts=4 et sw=4 sts=4
 
 set modeline
 
@@ -155,12 +162,20 @@ map Q gq
 " Press ENTER to start typing commands, just like online-game. ;)
 map <CR> :
 
+" F1: online help
+" F2: insert datetime
+" F3: toggle directory tree
+" F4: toggle folds
+" F5: toggle search results highlight
+" F6: toggle line number
+" F7: toggle quick format for BBS
 noremap <silent> <F2> a<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR><Esc>
 noremap <silent> <F3> :NERDTreeTabsToggle<CR>
 noremap <silent> <F4> za
 noremap <silent> <F5> :set hlsearch!<CR>
 " Toggle line numbers and fold column for easy copying:
 noremap <silent> <F6> :set nonumber!<CR>:set foldcolumn=0<CR>
+noremap <silent> <F7> :set tw=72<CR>gggqG:set tw=0<CR>
 
 inoremap <silent> <F2> <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
 
