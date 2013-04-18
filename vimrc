@@ -180,7 +180,7 @@ noremap <silent> <F7> :set tw=72<CR>gggqG:set tw=0<CR>
 
 nnoremap <F8> :set invpaste paste?<CR>
 imap <F8> <C-O>:set invpaste paste?<CR>
-set pastetoggle=<F2>
+set pastetoggle=<F8>
 
 inoremap <silent> <F2> <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
 
