@@ -1,7 +1,7 @@
 " $Id$
 "
 " Maintainer:   Tzeng Yuxio <tzengyuxio(at)gmail(dot)com>
-" Last Change:  2012 Apr 18
+" Last Change:  2013 Apr 18
 "
 " To use it, copy it to
 "     for Unix and OS X: $HOME/.vimrc
@@ -169,6 +169,7 @@ map <CR> :
 " F5: toggle search results highlight
 " F6: toggle line number
 " F7: toggle quick format for BBS
+" F8: paste toggle (no auto indentation while paste)
 noremap <silent> <F2> a<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR><Esc>
 noremap <silent> <F3> :NERDTreeTabsToggle<CR>
 noremap <silent> <F4> za
@@ -176,6 +177,10 @@ noremap <silent> <F5> :set hlsearch!<CR>
 " Toggle line numbers and fold column for easy copying:
 noremap <silent> <F6> :set nonumber!<CR>:set foldcolumn=0<CR>
 noremap <silent> <F7> :set tw=72<CR>gggqG:set tw=0<CR>
+
+nnoremap <F8> :set invpaste paste?<CR>
+imap <F8> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F2>
 
 inoremap <silent> <F2> <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
 
