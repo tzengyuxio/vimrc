@@ -35,6 +35,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'nvie/vim-flake8'
+Bundle 'kchmck/vim-coffee-script'
 " vim-scripts repos
 " non github repos
 
@@ -134,6 +135,7 @@ au FileType python  setlocal ts=8 et sw=4 sts=4 tw=79 foldmethod=indent
 au FileType html    setlocal ts=2 et sw=2 sts=2
 au FileType css     setlocal ts=4 et sw=4 sts=4
 au FileType sh      setlocal ts=4 et sw=4 sts=4
+au FileType javascript setlocal ts=4 et sw=4 sts=4
 
 set modeline
 
