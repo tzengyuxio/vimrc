@@ -131,11 +131,11 @@ au BufNewFile,BufRead *.scss set ft=scss.css
 au BufNewFile,BufRead *.sass set ft=sass.css
 
 au FileType vim     setlocal ts=2 et sw=2
+au FileType sh      setlocal ts=4 et sw=4 sts=4
 au FileType python  setlocal ts=8 et sw=4 sts=4 tw=79 foldmethod=indent
 au FileType html    setlocal ts=2 et sw=2 sts=2
-au FileType css     setlocal ts=4 et sw=4 sts=4
-au FileType sh      setlocal ts=4 et sw=4 sts=4
-au FileType javascript setlocal ts=4 et sw=4 sts=4
+au FileType css     setlocal ts=2 et sw=2 sts=2
+au FileType javascript setlocal ts=4 noet sw=4 sts=4
 
 set modeline
 
@@ -171,7 +171,7 @@ map <CR> :
 " F5: toggle search results highlight
 " F6: toggle line number
 " F7: toggle quick format for BBS
-" F8: paste toggle (no auto indentation while paste)
+" F8: toggle paste mode (no auto indentation while paste)
 noremap <silent> <F2> a<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR><Esc>
 noremap <silent> <F3> :NERDTreeTabsToggle<CR>
 noremap <silent> <F4> za
